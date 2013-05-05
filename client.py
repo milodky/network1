@@ -1,4 +1,6 @@
 import socket
+import sender
+import receiver
 from time import ctime
 
 class client:
@@ -6,8 +8,17 @@ class client:
 		self.ServerAddr = (ServerIP, ServerPort)
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.sock.connect(self.ServerAddr)
-
+		self.Receiver = receiver.receiver(self.sock)
+		self.Sender = sender.sender(self.sock)
+		#self.lock = 
 	def send_msg(self):
+		self.Sender.start()
+		self.Receiver.start()
+		self.Receiver.join()
+		self.Sender.join()
+		print "lala"
+		self.sock.close()
+	"""
 		while True:
 			data = raw_input('> ')
 			self.sock.send(data)
@@ -16,7 +27,7 @@ class client:
 			data = self.sock.recv(1024)
 			print data
 		self.sock.close()
-
+	"""
 if __name__ == "__main__":
-	ye = client("127.0.0.1", 1234)
+	ye = client("127.0.0.1", 12345)
 	ye.send_msg()

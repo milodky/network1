@@ -16,10 +16,11 @@ class Server:
 				data = clientSock.recv(1024)
 				print data
 				if data == "88":
+					clientSock.send('88')
 					break
 				clientSock.send('aaa')
+			clientSock.close()
 		self.sock.close()
-		clientSock.close()
 if __name__ == "__main__":
-	_server = Server("", 1234)
+	_server = Server("", 12345)
 	_server.server_start()
