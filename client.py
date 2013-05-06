@@ -29,5 +29,5 @@ class client:
 		self.sock.close()
 	"""
 if __name__ == "__main__":
-	ye = client("127.0.0.1", 12345)
-	ye.send_msg()
+	_client = client("127.0.0.1", 12345)
+	_client.send_msg()
