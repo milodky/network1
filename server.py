@@ -13,12 +13,8 @@ class Server:
 		while True:
 			clientSock, ClientAddr = self.sock.accept()
 			print "connected from: ", ClientAddr
-	#		data = clientSock.recv(1024)
-	#		print data
-	#		if data:
 			_handler = server_handler.server_handler(clientSock)
 			_handler.start()
-		_handler.join()
 		data = ""
 		self.sock.close()
 if __name__ == "__main__":
