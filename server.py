@@ -18,5 +18,5 @@ class Server:
 		data = ""
 		self.sock.close()
 if __name__ == "__main__":
-	_server = Server("", 12345)
+	_server = Server("", 11115)
 	_server.server_start()
