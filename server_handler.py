@@ -3,6 +3,7 @@ import socket
 class server_handler(threading.Thread):
 	user = {}
 	item = []
+	cnt = 0
 	def __init__(self, sock):
 		threading.Thread.__init__(self)
 		self.clientSock = sock
@@ -30,25 +31,25 @@ class server_handler(threading.Thread):
 				for j in range(3, len(data_info)):
 					print data_info[j]
 					description = description + data_info[j] + " "
+				_item["number"] = str(server_handler.cnt)
 				_item["itemname"] = data_info[0]
 				_item["price"] = data_info[1]
 				_item["description"] = description
 				_item["username"] = self.name
 				server_handler.item.append(_item)
 				data = "Bid handled!"
+				server_handler.cnt += 1
 			elif (not cmp(data_info[0].lower(), 'show')):
 				if (not server_handler.item):
 					data = "No items found!"
 				else:
-					i = 0
 					for elem in server_handler.item:
-						data = data + str(i)
+						data = data + elem["number"]
 						data = data + " " + elem["username"]
 						data = data + " " + elem["itemname"]
 						data = data + " " + elem["price"]
 						data = data + " " + elem["description"]
 						data = data + '\n'
-						i += 1
 			elif (rdata == "88"):
 				self.clientSock.send("88")
 				break
